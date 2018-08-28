@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <title>qroom</title>
+        <meta name="description" content="qroom, the queue groomer">
+        <style>
+            h1 {text-align:center;}
+        </style>
+    </head>
+    <body>
+        <h1><code>qroom</code>, the queue groomer</h1>
+
+        <p><code>qroom</code> helps manage unruly queues without altering your applications.</p>
+        <p><code>qroom</code> adds <em>time-based</em> queue grooming to <a href="https://aws.amazon.com/sqs/">AWS SQS queues</a>, to complement the built-in <em>receive-count</em> queue grooming. The result is not a time-based priority queue, but <del>it plays one on TV</del> delivers some of the same benefits.</p>
+
+        <h2>Aims, Caveats, Requirements</h2>
+        <p>It's intended to be a useful tool instead of a comprehensive solution, so there are some assumptions and relaxed requirements which might affect suitability for your use:</p>
+        <ul>
+            <li><strong>Drop-in</strong></li>
+            <ul>
+                <li>No changes to existing deployed code or infrastructure.</li>
+                <li><code>qroom</code> uses an additional queue to hold older items.</li>
+            </ul>
+            <li><strong>Scaling is hard</strong></li>
+            <ul>
+                <li><code>qroom</code> is most suitable when the existing system processing messages from the queue can't be easily scaled, maybe because of cost, algorithmic, or capacity issues.</li>
+            </ul>
+            <li><strong>Imperfect is OK</strong></li>
+            <ul>
+                <li><code>qroom</code> doesn't act as a pre-processing facade, but competes for all new messages. It is likely to catch old (stale) messages before your existing system can receive them, but this is not guaranteed.</li>
+            </ul>
+            <li><strong>Technical assumptions</strong></li>
+            <ul>
+                <li><code>qroom</code> currently targets SQS only.</li>
+                <li><code>qroom</code> is not suitable for FIFO queues, since it inherently breaks ordering.</li>
+            </ul>
+        </ul>
+    </body>
+</html>
